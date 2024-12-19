@@ -5,6 +5,8 @@ const { AuthorizationCode } = require('simple-oauth2');
 const axios = require('axios');
 
 createApplication(({ app, callbackUrl, aToken }) => {
+
+  //Configure the authorization code flow
   const client = new AuthorizationCode({
     client: {
       id: process.env.CLIENT_ID,
@@ -28,14 +30,14 @@ createApplication(({ app, callbackUrl, aToken }) => {
     state: '3(#0/!~',
   });
 
-  // Initial page redirecting to PTDevices
+  // Initial page redirecting to PTDevices for account authentication
   app.get('/auth', (req, res) => {
     console.log(authorizationUri);
     res.redirect(authorizationUri);
   });
 
   // Callback service parsing the authorization token and asking for the access token
-  // NOTE: this callback URL must be provided to PTDevices in order for this to work.
+  // NOTE: this callback URL must be provided to PTDevices in order for this to work properly.
   app.get('/callback', async (req, res) => {
     const { code } = req.query;
     const options = {
@@ -48,9 +50,8 @@ createApplication(({ app, callbackUrl, aToken }) => {
 
       console.log('The resulting token: ', accessToken.token);
 
-      // return res.status(200).json(accessToken.token.access_token);
       aToken = accessToken.token;
-      const msg = "<h1>Token retrieved!</h1><p>" + accessToken.token.access_token + "</p><a href='/act'>Get account info</a>";
+      const msg = "<h3>Token retrieved!</h1><p>" + accessToken.token.access_token + "</p><a href='/act'>Get account info</a>";
       res.send(msg);
     } catch (error) {
       console.error('Access Token Error', error.message);
@@ -58,6 +59,8 @@ createApplication(({ app, callbackUrl, aToken }) => {
     }
   });
 
+  //Make a resource request for your account information returned in JSON format
+  //All resource information is at ptdevices.com/api/documentation
   app.get('/act',(req,res) => {
     let config = {
       headers: {
@@ -66,7 +69,6 @@ createApplication(({ app, callbackUrl, aToken }) => {
     }
     axios.get('https://ptdevices.com/v1/account',config)
     .then(response => {
-      // console.log(response.data);
       res.status(200).json(response.data);
     })
     .catch(error => {
@@ -75,7 +77,8 @@ createApplication(({ app, callbackUrl, aToken }) => {
     });
   });
 
+  //App starts here.
   app.get('/', (req, res) => {
-    res.send('Hello<br><a href="/auth">Log in with PTDevices</a>');
+    res.send('Hello there!<br><a href="/auth">Start authentication with PTDevices</a>');
   });
 });
