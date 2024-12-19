@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "a8bc20a4-2ab7-45f5-8798-0234dab56e64",
+		"name": "PTDevices REST API",
+		"description": "Used to test the PTDevices rest api.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24681712"
+	},
+	"item": [
+		{
+			"name": "v1/account",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/v1/account",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"v1",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/devices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/v1/devices",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"v1",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/device/image/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/v1/device/12328/image?width=400&height=400",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"v1",
+						"device",
+						"12328",
+						"image"
+					],
+					"query": [
+						{
+							"key": "width",
+							"value": "400"
+						},
+						{
+							"key": "height",
+							"value": "400"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/device/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/v1/device/{{DeviceID}}",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"v1",
+						"device",
+						"{{DeviceID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/device/{id}aggregates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/v1/device/{{DeviceID}}/aggregates?from_date=2024-10-10&to_date=2024-12-19",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"v1",
+						"device",
+						"{{DeviceID}}",
+						"aggregates"
+					],
+					"query": [
+						{
+							"key": "from_date",
+							"value": "2024-10-10"
+						},
+						{
+							"key": "to_date",
+							"value": "2024-12-19"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code",
+				"type": "string"
+			},
+			{
+				"key": "state",
+				"value": "kjhg6547",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "PTDevices REST API",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{ClientSecret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{ClientID}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{BaseUrl}}/oauth/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "{{BaseUrl}}/oauth/authorize",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "all",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "DeviceID",
+			"value": ""
+		},
+		{
+			"key": "BaseUrl",
+			"value": "https://ptdevices.com"
+		},
+		{
+			"key": "ClientID",
+			"value": ""
+		},
+		{
+			"key": "ClientSecret",
+			"value": ""
+		}
+	]
+}
